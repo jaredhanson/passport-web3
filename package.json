@@ -1,7 +1,7 @@
 {
-  "name": "passport-ethereum-siwe",
+  "name": "passport-web3-siww",
   "version": "0.1.0",
-  "description": "Ethereum authentication strategy for Passport.",
+  "description": "Web3 authentication strategy for Passport.",
   "keywords": [
     "passport",
     "ethereum"
@@ -31,9 +31,10 @@
   ],
   "main": "./lib",
   "dependencies": {
+    "@babel/runtime": "^7.18.6",
+    "@web3auth/sign-in-with-web3": "^1.0.0",
     "passport-strategy": "1.x.x",
-    "rand-token": "^1.0.1",
-    "siwe": "^1.1.6"
+    "rand-token": "^1.0.1"
   },
   "devDependencies": {
     "chai": "2.x.x",
