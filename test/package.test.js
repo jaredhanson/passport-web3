@@ -4,7 +4,7 @@ var sinon = require('sinon');
 var pkg = require('..');
 
 
-describe('passport-ethereum', function() {
+describe('passport-web3', function() {
   
   it('should export Strategy constructor as module', function() {
     expect(pkg).to.be.a('function');
