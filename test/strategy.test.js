@@ -64,6 +64,52 @@ describe('Strategy', function() {
       .authenticate();
   }); // should verify ethereum address
   
+  it('should verify solana address', function(done) {
+    chai.passport.use(new Strategy(function(address, network, cb) {
+      expect(address).to.equal('5K8DR5aAg8LY87xjxwvgqGt58hAPQ5MYdNXbmu7iKY9C');
+      expect(network).to.equal('solana');
+      return cb(null, { id: '248289761001' });
+    }))
+      .request(function(req) {
+        req.connection = {};
+        req.headers.host = 'localhost:3000';
+        req.body = {
+          header: { t: 'sip99' },
+          payload: {
+            domain: 'localhost:3000',
+            address: '5K8DR5aAg8LY87xjxwvgqGt58hAPQ5MYdNXbmu7iKY9C',
+            statement: 'Sign in with Solana to the app.',
+            uri: 'http://localhost:3000',
+            version: '1',
+            chainId: 1,
+            nonce: 'WOupCMkGSfv5CoVE',
+            issuedAt: '2022-07-07T21:09:24.017Z'
+          },
+          signature: {
+            t: 'sip99',
+            s: '4cNRbLUgrd789tHGQGL76emjf54WKwQCUEWHm3vbt9RNy66TYGq7HgW1sw5E1Ycfiu2FHK7AWeBVjmdruyxnjd6R'
+          },
+          network: 'solana'
+        };
+        req.session = {
+          messages: [],
+          'web3:siww': {
+            nonce: 'WOupCMkGSfv5CoVE'
+          }
+        };
+      })
+      .success(function(user, info) {
+        expect(user).to.deep.equal({ id: '248289761001' });
+        expect(info).to.be.undefined;
+        expect(this.session).to.deep.equal({
+          messages: []
+        });
+        done();
+      })
+      .error(done)
+      .authenticate();
+  }); // should verify solana address
+  
   /*
   it('should verify address and chain id', function(done) {
     chai.passport.use(new Strategy(function(address, chainId, cb) {
